@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="CSS/OrderHome.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="main1">
+            <a href="index.html"><img src="Images/zomato-image-logo-2.avif" alt="Zomato Logo" class="logo"></a>
+            <input type="text" placeholder="🔍 Search for restaurant, cuisine or a dish" class="search-bar">
+            <button onclick="toggleCart(true)" class="cart-button">Cart</sup></button>
+            <a href="#" class="profile">
+                <img src="Images/profile.png" alt="profile" class="profile-image">
+                &nbsp;&nbsp;Sai Teja
+            </a>
+        </div>
+
+        <!-- Breadcrumbs -->
+        <p style="color: #6E6E6E;">Home&nbsp;&nbsp;/&nbsp; India&nbsp;/&nbsp; Hyderabad&nbsp;/&nbsp; Hyderabad
+            City&nbsp;/&nbsp; <span style="color: #e8e8e8;">innomatics</span></p>
+
+        <!-- Navigation Tabs -->
+        <h1 class="type">
+            <span class="inactive">
+                <div style="height: 60px; width: 60px;">
+                    <img src="Images/dine-out.avif" alt="Dining Out">
+                </div>&nbsp;&nbsp;Dining Out
+            </span>
+            <span class="active">
+                <img src="Images/delivery-img.webp" alt="Delivery">&nbsp;&nbsp;Delivery
+            </span>
+            <span class="inactive">
+                <img src="Images/nightlife-img.webp" alt="Nightlife">&nbsp;&nbsp;Nightlife
+            </span>
+        </h1>
+        <hr>
+    </div>
+
+    <div style="padding-left: 10%; padding-right: 10%; padding-top: 1rem; background-color: #F8F8F8;">
+        <h1 style="margin-bottom: 0.5rem;">Eat what makes you happy</h1>
+        <div class="scroll-container">
+            <div class="food-item" onclick="alert('Biryani clicked!')">
+                <img src="Images/biryani.avif" alt="Biryani">
+                <h2>Biryani</h2>
+            </div>
+            <div class="food-item" onclick="alert('Chicken clicked!')">
+                <img src="Images/chicken.avif" alt="Chicken">
+                <h2>Chicken</h2>
+            </div>
+            <div class="food-item" onclick="alert('Pizza clicked!')">
+                <img src="Images/Pizza.avif" alt="Pizza">
+                <h2>Pizza</h2>
+            </div>
+            <div class="food-item" onclick="alert('Shawarma clicked!')">
+                <img src="Images/shawarama.avif" alt="Shawarma">
+                <h2>Shawarma</h2>
+            </div>
+            <div class="food-item" onclick="alert('Fried Rice clicked!')">
+                <img src="Images/Fried Rice.avif" alt="Fried Rice">
+                <h2>Fried Rice</h2>
+            </div>
+            <div class="food-item" onclick="alert('Dosa clicked!')">
+                <img src="Images/Dosa.avif" alt="Dosa">
+                <h2>Dosa</h2>
+            </div>
+            <div class="food-item" onclick="alert('North Indian clicked!')">
+                <img src="Images/North indian.avif" alt="North Indian">
+                <h2>North Indian</h2>
+            </div>
+            <div class="food-item" onclick="alert('Rolls clicked!')">
+                <img src="Images/Rolls.avif" alt="Rolls">
+                <h2>Rolls</h2>
+            </div>
+            <div class="food-item" onclick="alert('Cake clicked!')">
+                <img src="Images/Cake.avif" alt="Cake">
+                <h2>Cake</h2>
+            </div>
+            <div class="food-item" onclick="alert('Thali clicked!')">
+                <img src="Images/Thali.avif" alt="Thali">
+                <h2>Thali</h2>
+            </div>
+            <div class="food-item" onclick="alert('Sweets clicked!')">
+                <img src="Images/Sweets.avif" alt="Sweets">
+                <h2>Sweets</h2>
+            </div>
+        </div>
+        <!-- <button class="scroll-button left" onclick="scrollLeft()">&#10094;</button>
+        <button class="scroll-button right" onclick="scrollRight()">&#10095;</button> -->
+    </div>
+    <div class="container">
+        <!-- Filter Buttons -->
+        <div class="filter-buttons">
+            <button onclick="fetchFood(true)">All</button>
+            <button onclick="fetchFood('Vegetarian')">Veg</button>
+            <button onclick="fetchFood('Non-Vegetarian')">Non-Veg</button>
+            <button onclick="fetchFood('Breakfast')">Breakfast</button>
+            <button onclick="fetchFood('Lunch')">Lunch</button>
+            <button onclick="fetchFood('Snacks')">Snacks</button>
+            <button onclick="fetchFood('Dinner')">Dinner</button>
+            <button onclick="fetchFood('Dessert')">Dessert</button>
+        </div>
+    </div>
+
+    <!-- Food Cards -->
+    <div id="card"></div>
+
+    <!-- Cart Modal -->
+    <div id="cart-backdrop"></div>
+    <div id="cart-modal">
+        <div class="cart-header">
+            <h2>Your Cart</h2>
+            <button class="close-btn" onclick="toggleCart(false)">&times;</button>
+        </div>
+        <div id="cart-items">
+            <!-- Cart items will be rendered here -->
+        </div>
+        <div class="cart-footer">
+            <p>Total: ₹ <span id="cart-total">00</span></p>
+            <button class="pay-btn">Pay</button>
+        </div>
+    </div>
+
+    <script>
+        let cart = {}; // Initialize the cart
+
+        const foodData = [
+            {
+                "food_id": 1,
+                "food_type": "Images/non-veg-logo.png",
+                "food_name": "Cheese Omelette",
+                "food_image": "Images/Cheese Omelette.jpg",
+                "food_price": 120,
+                "food_category": "Breakfast",
+                "food_description": "A light and fluffy omelette filled with melted cheese and fresh herbs.",
+                "food_diet": "Non-Vegetarian",
+                "food_rating": 4.3
+            },
+            {
+                "food_id": 2,
+                "food_type": "Images/veg-logo.png",
+                "food_name": "Pancakes with Maple Syrup",
+                "food_image": "Images/Pancakes with Maple Syrup.jpg",
+                "food_price": 320,
+                "food_category": "Breakfast",
+                "food_description": "Stack of golden pancakes drizzled with pure maple syrup and butter.",
+                "food_diet": "Vegetarian",
+                "food_rating": 4.1
+            },
+            {
+                "food_id": 3,
+                "food_type": "Images/veg-logo.png",
+                "food_name": "Avocado Toast",
+                "food_image": "Images/Avocado Toast.avif",
+                "food_price": 250,
+                "food_category": "Breakfast",
+                "food_description": "Toasted sourdough topped with smashed avocado, cherry tomatoes, and a sprinkle of salt.",
+                "food_diet": "Vegetarian",
+                "food_rating": 4.0
+            },
+            {
+                "food_id": 4,
+                "food_type": "Images/non-veg-logo.png",
+                "food_name": "Caesar Salad",
+                "food_image": "Images/Caesar Salad.jpg",
+                "food_price": 400,
+                "food_category": "Lunch",
+                "food_description": "Crisp romaine lettuce tossed with Caesar dressing, parmesan, and crunchy croutons.",
+                "food_diet": "Non-Vegetarian",
+                "food_rating": 4.2
+            },
+            {
+                "food_id": 5,
+                "food_type": "Images/non-veg-logo.png",
+                "food_name": "Grilled Chicken Sandwich",
+                "food_image": "Images/Grilled Chicken Sandwich.avif",
+                "food_price": 300,
+                "food_category": "Lunch",
+                "food_description": "Grilled chicken breast served on a toasted bun with lettuce, tomato, and mayo.",
+                "food_diet": "Non-Vegetarian",
+                "food_rating": 4.2
+            },
+            {
+                "food_id": 6,
+                "food_type": "Images/veg-logo.png",
+                "food_name": "Margherita Pizza",
+                "food_image": "Images/Margherita Pizza.jpg",
+                "food_price": 450,
+                "food_category": "Lunch",
+                "food_description": "Classic pizza topped with fresh mozzarella, basil, and tangy tomato sauce.",
+                "food_diet": "Vegetarian",
+                "food_rating": 4.4
+            },
+            {
+                "food_id": 7,
+                "food_type": "Images/non-veg-logo.png",
+                "food_name": "Spaghetti Bolognese",
+                "food_image": "Images/Spaghetti Bolognese.jpg",
+                "food_price": 550,
+                "food_category": "Dinner",
+                "food_description": "Traditional Italian pasta in a rich meat sauce made with tomatoes, beef, and herbs.",
+                "food_diet": "Non-Vegetarian",
+                "food_rating": 4.3
+            },
+            {
+                "food_id": 8,
+                "food_type": "Images/non-veg-logo.png",
+                "food_name": "Burger",
+                "food_image": "Images/Burger.jpg",
+                "food_price": 280,
+                "food_category": "Snacks",
+                "food_description": "Juicy patty with cheddar cheese, lettuce, tomato, and pickles on a brioche bun.",
+                "food_diet": "Non-Vegetarian",
+                "food_rating": 4.1
+            },
+            {
+                "food_id": 9,
+                "food_type": "Images/non-veg-logo.png",
+                "food_name": "Fish and Chips",
+                "food_image": "Images/Fish and Chips.webp",
+                "food_price": 600,
+                "food_category": "Dinner",
+                "food_description": "Crispy battered fish served with golden fries and tartar sauce.",
+                "food_diet": "Non-Vegetarian",
+                "food_rating": 4.4
+            },
+            {
+                "food_id": 10,
+                "food_type": "Images/non-veg-logo.png",
+                "food_name": "Sushi Platter",
+                "food_image": "Images/Sushi Platter.webp",
+                "food_price": 900,
+                "food_category": "Dinner",
+                "food_description": "An assortment of fresh sushi rolls, sashimi, and nigiri served with soy sauce and wasabi.",
+                "food_diet": "Non-Vegetarian",
+                "food_rating": 4.5
+            },
+            {
+                "food_id": 11,
+                "food_type": "Images/veg-logo.png",
+                "food_name": "Veggie Wrap",
+                "food_image": "Images/Veggie Wrap.jpg",
+                "food_price": 200,
+                "food_category": "Snacks",
+                "food_description": "Whole wheat wrap filled with hummus, fresh vegetables, and crumbled feta cheese.",
+                "food_diet": "Vegetarian",
+                "food_rating": 4.0
+            },
+            {
+                "food_id": 12,
+                "food_type": "Images/veg-logo.png",
+                "food_name": "Greek Salad",
+                "food_image": "Images/Greek Salad.jpg",
+                "food_price": 350,
+                "food_category": "Lunch",
+                "food_description": "Mixed greens with olives, feta, cucumbers, and tomatoes tossed in a lemon-oregano dressing.",
+                "food_diet": "Vegetarian",
+                "food_rating": 4.2
+            },
+            {
+                "food_id": 13,
+                "food_type": "Images/non-veg-logo.png",
+                "food_name": "Chicken Tacos",
+                "food_image": "Images/Chicken Tacos.jpg",
+                "food_price": 300,
+                "food_category": "Dinner",
+                "food_description": "Spiced grilled chicken served in soft corn tortillas with salsa, avocado, and a squeeze of lime.",
+                "food_diet": "Non-Vegetarian",
+                "food_rating": 4.3
+            },
+            {
+                "food_id": 14,
+                "food_type": "Images/non-veg-logo.png",
+                "food_name": "Chicken Dinner",
+                "food_image": "Images/Chicken Dinner.jpg",
+                "food_price": 850,
+                "food_category": "Dinner",
+                "food_description": "Tender grilled chicken served with mashed potatoes, steamed vegetables, and savory gravy.",
+                "food_diet": "Non-Vegetarian",
+                "food_rating": 4.5
+            },
+            {
+                "food_id": 15,
+                "food_type": "Images/veg-logo.png",
+                "food_name": "Vegetable Stir-Fry",
+                "food_image": "Images/Vegetable Stir-Fry.jpg",
+                "food_price": 400,
+                "food_category": "Dinner",
+                "food_description": "A mix of fresh vegetables stir-fried in a savory sauce, served over steamed rice.",
+                "food_diet": "Vegetarian",
+                "food_rating": 4.2
+            },
+            {
+                "food_id": 16,
+                "food_type": "Images/veg-logo.png",
+                "food_name": "Chocolate Cake",
+                "food_image": "Images/Chocolate Cake.webp",
+                "food_price": 250,
+                "food_category": "Dessert",
+                "food_description": "Rich and moist chocolate cake layered with creamy chocolate frosting.",
+                "food_diet": "Vegetarian",
+                "food_rating": 4.5
+            },
+            {
+                "food_id": 17,
+                "food_type": "Images/veg-logo.png",
+                "food_name": "Ice Cream Sundae",
+                "food_image": "Images/Ice Cream Sundae.jpg",
+                "food_price": 180,
+                "food_category": "Dessert",
+                "food_description": "Classic sundae with vanilla ice cream, drizzled with chocolate syrup, topped with whipped cream and a cherry.",
+                "food_diet": "Vegetarian",
+                "food_rating": 4.4
+            },
+            {
+                "food_id": 18,
+                "food_type": "Images/veg-logo.png",
+                "food_name": "Fruit Salad",
+                "food_image": "Images/Fruit Salad.jpg",
+                "food_price": 150,
+                "food_category": "Dessert",
+                "food_description": "A refreshing mix of seasonal fruits tossed in a light citrus dressing.",
+                "food_diet": "Vegetarian",
+                "food_rating": 4.3
+            },
+            {
+                "food_id": 19,
+                "food_type": "Images/veg-logo.png",
+                "food_name": "French Fries",
+                "food_image": "Images/French Fries.jpg",
+                "food_price": 120,
+                "food_category": "Snacks",
+                "food_description": "Crispy golden fries served with ketchup or your choice of dipping sauce.",
+                "food_diet": "Vegetarian",
+                "food_rating": 4.1
+            },
+            {
+                "food_id": 20,
+                "food_type": "Images/veg-logo.png",
+                "food_name": "Nachos",
+                "food_image": "Images/Nachos.jpg",
+                "food_price": 300,
+                "food_category": "Snacks",
+                "food_description": "Tortilla chips smothered in melted cheese, jalapeños, salsa, and sour cream.",
+                "food_diet": "Vegetarian",
+                "food_rating": 4.2
+            },
+            {
+                "food_id": 21,
+                "food_type": "Images/veg-logo.png",
+                "food_name": "Bagel with Cream Cheese",
+                "food_image": "Images/Bagel with Cream Cheese.jpg",
+                "food_price": 150,
+                "food_category": "Breakfast",
+                "food_description": "A freshly baked bagel served with a generous spread of cream cheese.",
+                "food_diet": "Vegetarian",
+                "food_rating": 4.2
+            },
+            {
+                "food_id": 22,
+                "food_type": "Images/veg-logo.png",
+                "food_name": "French Toast with Berries",
+                "food_image": "Images/French Toast with Berries.jpg",
+                "food_price": 220,
+                "food_category": "Breakfast",
+                "food_description": "Golden French toast topped with mixed berries and a dusting of powdered sugar.",
+                "food_diet": "Vegetarian",
+                "food_rating": 4.5
+            },
+            {
+                "food_id": 23,
+                "food_type": "Images/non-veg-logo.png",
+                "food_name": "Egg Sandwich",
+                "food_image": "Images/Egg Sandwich.jpg",
+                "food_price": 100,
+                "food_category": "Breakfast",
+                "food_description": "A toasted sandwich filled with scrambled eggs, cheese, and a hint of herbs.",
+                "food_diet": "Non-Vegetarian",
+                "food_rating": 4.1
+            },
+            {
+                "food_id": 24,
+                "food_type": "Images/non-veg-logo.png",
+                "food_name": "Turkey Club Sandwich",
+                "food_image": "Images/Turkey Club Sandwich.jpg",
+                "food_price": 350,
+                "food_category": "Lunch",
+                "food_description": "A hearty sandwich layered with turkey, bacon, lettuce, tomato, and mayo on toasted bread.",
+                "food_diet": "Non-Vegetarian",
+                "food_rating": 4.4
+            },
+            {
+                "food_id": 25,
+                "food_type": "Images/veg-logo.png",
+                "food_name": "Veggie Burger",
+                "food_image": "Images/Veggie Burger.avif",
+                "food_price": 300,
+                "food_category": "Lunch",
+                "food_description": "A delicious plant-based burger served with lettuce, tomato, and a tangy sauce.",
+                "food_diet": "Vegetarian",
+                "food_rating": 4.3
+            },
+            {
+                "food_id": 26,
+                "food_type": "Images/veg-logo.png",
+                "food_name": "Grilled Cheese Sandwich",
+                "food_image": "Images/Grilled Cheese Sandwich.jpg",
+                "food_price": 250,
+                "food_category": "Lunch",
+                "food_description": "Classic grilled cheese with melted cheddar between perfectly toasted slices.",
+                "food_diet": "Vegetarian",
+                "food_rating": 4.2
+            },
+            {
+                "food_id": 27,
+                "food_type": "Images/non-veg-logo.png",
+                "food_name": "Chicken Caesar Wrap",
+                "food_image": "Images/Chicken Caesar Wrap.jpg",
+                "food_price": 400,
+                "food_category": "Lunch",
+                "food_description": "Grilled chicken with crisp romaine, Caesar dressing, and parmesan wrapped in a tortilla.",
+                "food_diet": "Non-Vegetarian",
+                "food_rating": 4.5
+            },
+            {
+                "food_id": 28,
+                "food_type": "Images/non-veg-logo.png",
+                "food_name": "Beef Burrito",
+                "food_image": "Images/Beef Burrito.webp",
+                "food_price": 450,
+                "food_category": "Dinner",
+                "food_description": "A hearty burrito filled with seasoned beef, rice, beans, and fresh salsa.",
+                "food_diet": "Non-Vegetarian",
+                "food_rating": 4.4
+            },
+            {
+                "food_id": 29,
+                "food_type": "Images/non-veg-logo.png",
+                "food_name": "Lamb Curry",
+                "food_image": "Images/Lamb Curry.jpg",
+                "food_price": 600,
+                "food_category": "Dinner",
+                "food_description": "A spicy and aromatic lamb curry slow-cooked with a blend of traditional spices.",
+                "food_diet": "Non-Vegetarian",
+                "food_rating": 4.6
+            },
+            {
+                "food_id": 30,
+                "food_type": "Images/non-veg-logo.png",
+                "food_name": "Grilled Salmon",
+                "food_image": "Images/Grilled Salmon.jpg",
+                "food_price": 1200,
+                "food_category": "Dinner",
+                "food_description": "Fresh salmon fillet grilled to perfection and served with a lemon butter sauce.",
+                "food_diet": "Non-Vegetarian",
+                "food_rating": 4.7
+            },
+            {
+                "food_id": 31,
+                "food_type": "Images/non-veg-logo.png",
+                "food_name": "Shrimp Scampi Pasta",
+                "food_image": "Images/Shrimp Scampi Pasta.jpg",
+                "food_price": 650,
+                "food_category": "Dinner",
+                "food_description": "Succulent shrimp tossed with pasta in a garlic, lemon, and white wine sauce.",
+                "food_diet": "Non-Vegetarian",
+                "food_rating": 4.6
+            },
+            {
+                "food_id": 32,
+                "food_type": "Images/non-veg-logo.png",
+                "food_name": "Steak Frites",
+                "food_image": "Images/Steak Frites.jpg",
+                "food_price": 950,
+                "food_category": "Dinner",
+                "food_description": "Juicy steak served with crispy fries and a side of garlic butter.",
+                "food_diet": "Non-Vegetarian",
+                "food_rating": 4.8
+            },
+            {
+                "food_id": 33,
+                "food_type": "Images/veg-logo.png",
+                "food_name": "Mushroom Risotto",
+                "food_image": "Images/Mushroom Risotto.jpg",
+                "food_price": 500,
+                "food_category": "Dinner",
+                "food_description": "Creamy risotto cooked with a variety of mushrooms and finished with parmesan.",
+                "food_diet": "Vegetarian",
+                "food_rating": 4.4
+            },
+            {
+                "food_id": 34,
+                "food_type": "Images/veg-logo.png",
+                "food_name": "Vegetable Lasagna",
+                "food_image": "Images/Vegetable Lasagna.jpg",
+                "food_price": 450,
+                "food_category": "Dinner",
+                "food_description": "Layers of pasta, vegetables, and cheese baked to perfection in a rich tomato sauce.",
+                "food_diet": "Vegetarian",
+                "food_rating": 4.3
+            },
+            {
+                "food_id": 35,
+                "food_type": "Images/non-veg-logo.png",
+                "food_name": "Chicken Quesadilla",
+                "food_image": "Images/Chicken Quesadilla.jpg",
+                "food_price": 350,
+                "food_category": "Snacks",
+                "food_description": "Grilled tortilla filled with spiced chicken, melted cheese, and pico de gallo.",
+                "food_diet": "Non-Vegetarian",
+                "food_rating": 4.4
+            },
+            {
+                "food_id": 36,
+                "food_type": "Images/veg-logo.png",
+                "food_name": "Mozzarella Sticks",
+                "food_image": "Images/Mozzarella Sticks.jpg",
+                "food_price": 200,
+                "food_category": "Snacks",
+                "food_description": "Crispy battered mozzarella sticks served with a side of marinara sauce.",
+                "food_diet": "Vegetarian",
+                "food_rating": 4.2
+            },
+            {
+                "food_id": 37,
+                "food_type": "Images/veg-logo.png",
+                "food_name": "Onion Rings",
+                "food_image": "Images/Onion Rings.webp",
+                "food_price": 150,
+                "food_category": "Snacks",
+                "food_description": "Crisp and golden onion rings, a perfect crunchy snack.",
+                "food_diet": "Vegetarian",
+                "food_rating": 4.1
+            },
+            {
+                "food_id": 38,
+                "food_type": "Images/veg-logo.png",
+                "food_name": "Soft Pretzel",
+                "food_image": "Images/Soft Pretzel.jpg",
+                "food_price": 120,
+                "food_category": "Snacks",
+                "food_description": "Warm, soft pretzels sprinkled with salt and served with mustard.",
+                "food_diet": "Vegetarian",
+                "food_rating": 4.2
+            },
+            {
+                "food_id": 39,
+                "food_type": "Images/veg-logo.png",
+                "food_name": "Tiramisu",
+                "food_image": "Images/Tiramisu.jpg",
+                "food_price": 300,
+                "food_category": "Dessert",
+                "food_description": "A classic Italian dessert made with layers of coffee-soaked ladyfingers and mascarpone cream.",
+                "food_diet": "Vegetarian",
+                "food_rating": 4.7
+            },
+            {
+                "food_id": 40,
+                "food_type": "Images/veg-logo.png",
+                "food_name": "Apple Pie",
+                "food_image": "Images/Apple Pie.jpg",
+                "food_price": 250,
+                "food_category": "Dessert",
+                "food_description": "A traditional apple pie with a flaky crust and spiced apple filling.",
+                "food_diet": "Vegetarian",
+                "food_rating": 4.5
+            },
+            {
+                "food_id": 41,
+                "food_type": "Images/non-veg-logo.png",
+                "food_name": "Mutton Biryani",
+                "food_image": "Images/Mutton Biryani.webp",
+                "food_price": 650,
+                "food_category": "Dinner",
+                "food_description": "A flavorful mutton biryani cooked with aromatic spices and basmati rice.",
+                "food_diet": "Non-Vegetarian",
+                "food_rating": 4.6
+            },
+            {
+                "food_id": 42,
+                "food_type": "Images/veg-logo.png",
+                "food_name": "Paneer Butter Masala",
+                "food_image": "Images/Paneer Butter Masala.jpg",
+                "food_price": 500,
+                "food_category": "Dinner",
+                "food_description": "Cottage cheese cubes simmered in a rich, creamy tomato gravy with spices.",
+                "food_diet": "Vegetarian",
+                "food_rating": 4.7
+            },
+            {
+                "food_id": 43,
+                "food_type": "Images/veg-logo.png",
+                "food_name": "Chole Bhature",
+                "food_image": "Images/Chole Bhature.webp",
+                "food_price": 150,
+                "food_category": "Lunch",
+                "food_description": "Spicy chickpea curry served with fluffy deep-fried bhature.",
+                "food_diet": "Vegetarian",
+                "food_rating": 4.5
+            },
+            {
+                "food_id": 44,
+                "food_type": "Images/veg-logo.png",
+                "food_name": "Dosa",
+                "food_image": "Images/Dosa.jpg",
+                "food_price": 80,
+                "food_category": "Breakfast",
+                "food_description": "A crispy South Indian crepe served with coconut chutney and sambar.",
+                "food_diet": "Vegetarian",
+                "food_rating": 4.6
+            },
+            {
+                "food_id": 45,
+                "food_type": "Images/veg-logo.png",
+                "food_name": "Idli Sambar",
+                "food_image": "Images/Idli Sambar.jpg",
+                "food_price": 60,
+                "food_category": "Breakfast",
+                "food_description": "Steamed rice cakes served with tangy sambar and coconut chutney.",
+                "food_diet": "Vegetarian",
+                "food_rating": 4.5
+            },
+            {
+                "food_id": 46,
+                "food_type": "Images/non-veg-logo.png",
+                "food_name": "Ramen",
+                "food_image": "Images/ramen.jpg",
+                "food_price": 550,
+                "food_category": "Dinner",
+                "food_description": "A hearty bowl of Japanese ramen with flavorful broth, noodles, and toppings.",
+                "food_diet": "Non-Vegetarian",
+                "food_rating": 4.6
+            },
+            {
+                "food_id": 47,
+                "food_type": "Images/non-veg-logo.png",
+                "food_name": "Pho",
+                "food_image": "Images/pho.jpg",
+                "food_price": 500,
+                "food_category": "Dinner",
+                "food_description": "Vietnamese noodle soup with herbs, tender beef slices, and rice noodles.",
+                "food_diet": "Non-Vegetarian",
+                "food_rating": 4.5
+            },
+            {
+                "food_id": 48,
+                "food_type": "Images/non-veg-logo.png",
+                "food_name": "BBQ Ribs",
+                "food_image": "Images/bbq ribs.jpg",
+                "food_price": 850,
+                "food_category": "Dinner",
+                "food_description": "Slow-cooked BBQ ribs glazed with a smoky barbecue sauce.",
+                "food_diet": "Non-Vegetarian",
+                "food_rating": 4.7
+            },
+            {
+                "food_id": 49,
+                "food_type": "Images/non-veg-logo.png",
+                "food_name": "Ceviche",
+                "food_image": "Images/Ceviche.jpg",
+                "food_price": 600,
+                "food_category": "Lunch",
+                "food_description": "Fresh fish marinated in citrus juices with onions, cilantro, and chili peppers.",
+                "food_diet": "Non-Vegetarian",
+                "food_rating": 4.4
+            },
+            {
+                "food_id": 50,
+                "food_type": "Images/veg-logo.png",
+                "food_name": "Falafel Wrap",
+                "food_image": "Images/falafel wrap.jpg",
+                "food_price": 300,
+                "food_category": "Lunch",
+                "food_description": "Crispy falafel balls wrapped in pita with fresh vegetables and tahini sauce.",
+                "food_diet": "Vegetarian",
+                "food_rating": 4.3
+            }
+        ];
+
+        function fetchFood(pass) {
+            let card = document.getElementById('card');
+            card.innerHTML = "";
+            foodData.forEach(i => {
+                let disply;
+                if (pass === 'Vegetarian' || pass === 'Non-Vegetarian') {
+                    disply = i.food_diet;
+                } else if (pass === 'Breakfast' || pass === 'Lunch' || pass === 'Snacks' || pass === 'Dinner' || pass === 'Dessert') {
+                    disply = i.food_category;
+                } else {
+                    disply = true;
+                }
+
+                if (pass === disply) {
+                    card.innerHTML += `
+                        <div class="foodCard">
+                            <div class="foodCard11">
+                                <h3 class="foodCard11Name" style="align-items: center;"><img class="foodCard11Type" src="${i.food_type}" alt="${i.food_diet}"/> ${i.food_name}</h3>
+                                <h4 class="foodCard11Rating"  style="color:#696969">★ ${i.food_rating}</h4>
+                                <h4 style="color:#696969">${i.food_category}</h4>
+                                <h3 class="foodCard11Price">₹ ${i.food_price}</h3>
+                                <p class="foodCard11Description">${i.food_description}</p>
+                            </div>
+                            <div class="foodCard12">
+                                <img class="foodCard12image" src="${i.food_image}" alt="${i.food_name}"/>
+                                <button class="foodCard12Cart" onclick="addToCart(${i.food_id})">Add</button>
+                            </div>
+                        </div>`;
+                }
+            });
+        }
+
+        function addToCart(foodId) {
+            const product = foodData.find(item => item.food_id === foodId);
+            if (cart[foodId]) {
+                cart[foodId].quantity++;
+            } else {
+                cart[foodId] = { name: product.food_name, price: product.food_price, quantity: 1 };
+            }
+            alert(product.food_name + " added to cart");
+            renderCart();
+        }
+
+        function renderCart() {
+            const container = document.getElementById('cart-items');
+            container.innerHTML = '';
+            for (const id in cart) {
+                const item = cart[id];
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'cart-item';
+                itemDiv.innerHTML = `
+                    <div style="flex:45%">
+                        <strong>${item.name}</strong><br>₹${item.price} each
+                    </div>
+                    <div class="quantity-controls" style="flex:auto">
+                        <button onclick="decreaseQuantity('${id}')">-</button>
+                        <span>${item.quantity}</span>
+                        <button onclick="increaseQuantity('${id}')">+</button>
+                    </div>
+                    <div style="flex:auto">₹${(item.price * item.quantity)}</div>
+                `;
+                container.appendChild(itemDiv);
+            }
+            updateCartTotal();
+        }
+
+        function updateCartTotal() {
+            let total = 0;
+            for (const id in cart) {
+                total += cart[id].price * cart[id].quantity;
+            }
+            document.getElementById('cart-total').textContent = total;
+        }
+
+        function increaseQuantity(id) {
+            cart[id].quantity++;
+            renderCart();
+        }
+
+        function decreaseQuantity(id) {
+            if (cart[id].quantity > 1) {
+                cart[id].quantity--;
+            } else {
+                delete cart[id];
+            }
+            renderCart();
+        }
+
+        function toggleCart(show) {
+            const modal = document.getElementById('cart-modal');
+            const backdrop = document.getElementById('cart-backdrop');
+            if (show) {
+                modal.style.display = 'block';
+                backdrop.style.display = 'block';
+                renderCart();
+            } else {
+                modal.style.display = 'none';
+                backdrop.style.display = 'none';
+            }
+        }
+
+        // Initial fetch based on time of day
+        let now = new Date();
+        let hours = now.getHours();
+        if (hours >= 4 && hours < 12) {
+            fetchFood('Breakfast');
+        } else if (hours >= 12 && hours < 16) {
+            fetchFood('Lunch');
+        } else if (hours >= 16 && hours < 19) {
+            fetchFood('Snacks');
+        } else if (hours >= 19 && hours <= 23 || hours >= 0 && hours < 4) {
+            fetchFood('Dinner');
+        }
+    </script>
+</body>
+
+</html>

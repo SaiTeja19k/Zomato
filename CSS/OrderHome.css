@@ -1,0 +1,383 @@
+body {
+    font-family: "Roboto", serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+body,
+html {
+    overflow-x: hidden;
+}
+
+.container {
+    margin: 0 10%;
+    box-sizing: border-box;
+}
+
+/* Header Section */
+.main1 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    background-color: #fff;
+    gap: 15px;
+}
+
+.main1 a img.logo {
+    width: 10rem;
+    height: auto;
+}
+
+.main1 input[type="text"] {
+    flex: 1;
+    height: 2rem;
+    padding: 0.7rem;
+    font-size: 16px;
+    margin: 0 20px;
+    border: 0px solid #ccc;
+    border-radius: 0.5rem;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+}
+
+.profile {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #000;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.cart-button {
+    flex: 0 0 auto;
+    /* Prevents the button from resizing */
+    padding: 10px 15px;
+    background-color: #EF4F5F;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Profile image */
+.profile-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.main1 a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Navigation Tabs */
+.type {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.type span {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.type span img {
+    padding: 1rem;
+    background-color: rgb(252, 238, 192);
+    border-radius: 1rem;
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+}
+
+.type span.active {
+    color: #EF4F5F;
+    border-bottom: 4px solid #EF4F5F;
+    font-size: 1.5rem;
+    padding: 1rem;
+}
+
+.type span.inactive {
+    color: #696969;
+    font-size: 1.5rem;
+    padding: 1rem;
+}
+
+hr {
+    background-color: #F8F8F8;
+    border: none;
+    height: 3px;
+    /* transform: translateY(-1.5rem); */
+}
+
+/* Filter Buttons */
+.filter-buttons {
+    text-align: center;
+    margin: 1.5rem 0;
+    box-sizing: border-box;
+}
+
+.filter-buttons button {
+    background-color: #EF4F5F;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    margin: 0 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+    font-size: 14px;
+}
+
+.filter-buttons button:hover {
+    background-color: #d43f4b;
+}
+
+/* Scroll Container */
+.scroll-container {
+    display: flex;
+    gap: 2.5rem;
+    overflow-y: scroll;
+    height: 13rem;
+    padding-top: 0.5rem;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.scroll-container::-webkit-scrollbar {
+    display: none;
+}
+
+.food-item {
+    width: 9rem;
+    height: 9rem;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+
+.food-item:hover {
+    transform: scale(1.05);
+}
+
+.food-item img {
+    width: 8.5rem;
+    height: 8.5rem;
+    border-radius: 50%;
+}
+
+.food-item h2 {
+    text-align: center;
+    margin-top: 5px;
+}
+
+.right,
+.left {
+    border-radius: 50%;
+    height: 2rem;
+    width: 2rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    border: rgb(65, 63, 63) solid 0.1px;
+    background-color: white;
+    transform: translateY(-10rem);
+}
+
+.right {
+    transform: translate(66.5rem, -10rem);
+}
+
+.left {
+    transform: translate(-3rem, -10rem);
+}
+
+/* Food Cards */
+#card {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    width: 80%;
+    margin: 10px auto;
+}
+
+.foodCard {
+    display: flex;
+    box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
+    border-radius: 1rem;
+}
+
+.foodCard * {
+    line-height: 1.6;
+}
+
+.foodCard11 {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+}
+
+.foodCard11 img {
+    height: 1.3rem;
+    width: 1.3rem;
+}
+
+.foodCard11 h4,
+.foodCard11 h3,
+.foodCard11 p {
+    margin: 0;
+}
+
+.foodCard12 {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.foodCard12 img {
+    height: 10rem;
+    width: 15rem;
+    border-radius: 1rem;
+}
+
+.foodCard12 button {
+    width: 8rem;
+    height: 2rem;
+    color: whitesmoke;
+    border: none;
+    border-radius: 0.5rem;
+    background: #EF4F5F;
+    align-self: center;
+    cursor: pointer;
+    transform: translateY(-1rem);
+}
+
+.foodCard12 button:hover {
+    background-color: #ef384a;
+    color: whitesmoke;
+}
+
+/* Cart Modal */
+#cart-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 100;
+}
+
+#cart-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    width: 400px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    display: none;
+    z-index: 101;
+}
+
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.quantity-controls button {
+    width: 25px;
+    height: 25px;
+    border: 1px solid #ccc;
+    background: #eee;
+    cursor: pointer;
+}
+
+.quantity-controls span {
+    margin: 0 5px;
+}
+
+.cart-footer {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pay-btn {
+    padding: 10px 15px;
+    background: #EF4F5F;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+
+    body,
+    html {
+        overflow-x: hidden;
+    }
+
+    /* Responsive Design */
+    .container {
+        margin: 0 5%;
+    }
+
+    .main1 {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .main1 input[type="text"] {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    .scroll-button.left {
+        left: 2%;
+    }
+
+    .scroll-button.right {
+        right: 2%;
+    }
+
+    #card {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+@media (max-width:850px) {
+    .foodCard {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+}

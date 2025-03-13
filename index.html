@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta name="theme-color" content="#d43f4b"> -->
+    <title>Zomato</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="CSS/index.css">
+</head>
+
+<body>
+    <div class="main" style="background-image: url('/Images/main_background.png');">
+        <ul>
+            <li class="item-1">Get the App</li>
+            <li class="item-2">Investor Relations</li>
+            <li class="item-3">Add restaurant</li>
+            <li class="item-4">
+                <button class="nav-button" onclick="toggleLoginForm(true)">Login</button>
+            </li>
+            <li class="item-5">
+                <button class="nav-button" onclick="toggleSignupForm(true)">Signup</button>
+            </li>
+        </ul>
+        <div class="main11">
+            <img src="Images/zomato-image-logo.avif" alt="Zomato Logo">
+            <p>Discover the best food & drinks in Hyderabad</p>
+            <div class="search-container">
+                <input type="text" placeholder="Search for restaurant, cuisine or a dish">
+                <button class="search-button">Search</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Backdrop and Signup Form -->
+    <div id="backdrop"></div>
+    <div id="signup-form">
+        <div class="form-header">
+            <span>Signup</span>
+            <span class="close-btn" onclick="toggleSignupForm(false)">&times;</span>
+        </div>
+        <div class="form-body">
+
+            <label for="email">Email</label>
+            <input style="height: 2.5rem;" type="email" id="email" placeholder="Email" required>
+
+            <label for="Password">Password</label>
+            <input style="height: 2.5rem;" type="password" id="Password" placeholder="password" required>
+
+            <div class="terms">
+                <input type="checkbox" id="terms">
+                <label for="terms">I agree to Zomato's <a href="#">Terms of Service</a>, <a href="#">Privacy Policy</a>,
+                    and <a href="#">Content Policies</a></label>
+            </div>
+            <button class="create-account">Create account</button>
+            <div class="or-divider">
+                <hr><span>or</span>
+                <hr>
+            </div>
+            <button class="google-signin">Sign in with Google</button>
+        </div>
+        <div class="form-footer">
+            <p>Already have an account? <a href="#">Log in</a></p>
+        </div>
+    </div>
+
+    <!-- Backdrop and Login Form -->
+    <div id="backdrop1"></div>
+    <div id="login-form">
+        <div class="form-header">
+            <span>Login</span>
+            <span class="close-btn" onclick="toggleLoginForm(false)">&times;</span>
+        </div>
+        <div class="form-body">
+
+            <label for="email">Email</label>
+            <input style="height: 2.5rem;" type="email" id="email" placeholder="Email" required>
+
+            <label for="Password">Password</label>
+            <input style="height: 2.5rem;" type="password" id="Password" placeholder="Password" required>
+
+            <button class="create-account">Login</button>
+            <div class="or-divider">
+                <hr><span>or</span>
+                <hr>
+            </div>
+            <button class="google-signin">Sign in with Google</button>
+        </div>
+
+    </div>
+
+    <!-- Main Content Sections -->
+    <div class="main2">
+        <a href="OrderHome.html" class="main21" style="text-decoration: none;">
+            <img src="Images/order online.avif" alt="Order Online">
+            <h2>Order Online</h2>
+            <p>Stay home and order to your doorstep</p>
+        </a>
+        <div class="main22">
+            <img src="Images/dining.avif" alt="Dining">
+            <h2>Dining</h2>
+            <p>View the city's favourite dining venues</p>
+        </div>
+        <div class="main23">
+            <img src="Images/live events.jpg" alt="Live Events">
+            <h2>Live Events</h2>
+            <p>Discover India's best events & concerts</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleSignupForm(show) {
+            const form = document.getElementById("signup-form");
+            const backdrop = document.getElementById("backdrop");
+            if (show) {
+                form.style.display = "block";
+                backdrop.style.display = "block";
+            } else {
+                form.style.display = "none";
+                backdrop.style.display = "none";
+            }
+        }
+        function toggleLoginForm(show) {
+            const form = document.getElementById("login-form");
+            const backdrop = document.getElementById("backdrop1");
+            if (show) {
+                form.style.display = "block";
+                backdrop.style.display = "block";
+            } else {
+                form.style.display = "none";
+                backdrop.style.display = "none";
+            }
+        }
+
+    </script>
+</body>
+
+</html>
