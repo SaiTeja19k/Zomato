@@ -7,6 +7,7 @@
 
 /* Main Section */
 .main {
+    background-image: url('/Images/main_background.png');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
